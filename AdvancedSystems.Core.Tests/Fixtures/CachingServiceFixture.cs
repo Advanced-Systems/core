@@ -2,9 +2,6 @@
 
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
-
-using Moq;
 
 namespace AdvancedSystems.Core.Tests.Fixtures;
 
@@ -16,7 +13,7 @@ public sealed class CachingServiceFixture
 
     public CachingServiceFixture()
     {
-        var options = Options.Create(new MemoryDistributedCacheOptions());
+        var options = Microsoft.Extensions.Options.Options.Create(new MemoryDistributedCacheOptions());
         this.DistributedCache = new MemoryDistributedCache(options);
         this.CachingService = new CachingService(this.DistributedCache);
     }
