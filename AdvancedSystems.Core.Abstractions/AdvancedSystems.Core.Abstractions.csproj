@@ -2,28 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Version>1.0.0-alpha</Version>
-    <Authors>Stefan Greve</Authors>
-    <Company>Advanced Systems</Company>
-    <RepositoryUrl>https://github.com/Advanced-Systems/core</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>license.md</PackageLicenseFile>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <Version>8.0.0-rc.1</Version>
+    <RootNamespace>AdvancedSystems.Core.Abstractions</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\license.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\readme.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="8.0.4" />

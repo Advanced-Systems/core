@@ -1,0 +1,33 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <!-- Package Information -->
+        <Authors>Stefan Greve</Authors>
+        <Company>Advanced Systems</Company>
+        <Copyright>Copyright © Advanced Systems 2024</Copyright>
+        <Description>General purpose library for building .NET projects.</Description>
+        <RepositoryUrl>https://github.com/Advanced-Systems/core</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <NeutralLanguage>en</NeutralLanguage>
+        <PackageLicenseFile>license.md</PackageLicenseFile>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <PlatformTarget>anycpu</PlatformTarget>
+        <OutputType>library</OutputType>
+        <Deterministic>true</Deterministic>
+        <!-- Language Features -->
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\license.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\readme.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+</Project>
