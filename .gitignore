@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# dotenv files
+.env
+
 # User-specific files
 *.rsuser
 *.suo
@@ -399,6 +402,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.idea
 
 ##
 ## Visual studio for Mac
@@ -478,3 +482,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# DocFx
+_site
+_site_pdf
+api
