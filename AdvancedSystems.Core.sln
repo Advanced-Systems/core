@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedSystems.Core", "Adv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedSystems.Core.Tests", "AdvancedSystems.Core.Tests\AdvancedSystems.Core.Tests.csproj", "{7362D0CF-D407-4475-AE9B-612EED13BBFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSystems.Core.Abstractions", "AdvancedSystems.Core.Abstractions\AdvancedSystems.Core.Abstractions.csproj", "{59205891-4BD6-42C2-AD2D-EBA4F4B1789F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,15 @@ Global
 		{7362D0CF-D407-4475-AE9B-612EED13BBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7362D0CF-D407-4475-AE9B-612EED13BBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7362D0CF-D407-4475-AE9B-612EED13BBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59205891-4BD6-42C2-AD2D-EBA4F4B1789F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59205891-4BD6-42C2-AD2D-EBA4F4B1789F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59205891-4BD6-42C2-AD2D-EBA4F4B1789F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59205891-4BD6-42C2-AD2D-EBA4F4B1789F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5898DACC-B76C-4E9F-B271-A616981D4E9A}
 	EndGlobalSection
 EndGlobal

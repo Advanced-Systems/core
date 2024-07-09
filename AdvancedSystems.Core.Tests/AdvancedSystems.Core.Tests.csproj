@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,18 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdvancedSystems.Core.Abstractions\AdvancedSystems.Core.Abstractions.csproj" />
     <ProjectReference Include="..\AdvancedSystems.Core\AdvancedSystems.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
-    <PackageReference Include="XUnit" Version="2.4.2" />
-    <PackageReference Include="XUnit.Analyzers" Version="1.1.0" />
-    <PackageReference Include="XUnit.Runner.Console" Version="2.4.2">
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="XUnit" Version="2.9.0" />
+    <PackageReference Include="XUnit.Analyzers" Version="1.15.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="XUnit.Runner.Console" Version="2.9.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="XUnit.Runner.VisualStudio" Version="2.4.5">
+    <PackageReference Include="XUnit.Runner.VisualStudio" Version="2.8.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
