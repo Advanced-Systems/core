@@ -11,3 +11,9 @@ Run the test suite:
 ```powershell
 dotnet test .\AdvancedSystems.Core.Tests\ --no-logo
 ```
+
+Build and serve documentation locally:
+
+```powershell
+docfx .\docs\docfx.json --serve
+```
