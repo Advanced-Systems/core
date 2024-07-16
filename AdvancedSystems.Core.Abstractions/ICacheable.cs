@@ -5,6 +5,7 @@ namespace AdvancedSystems.Core.Abstractions
     /// <summary>
     ///     Provides the cache options for an entry in <seealso cref="ICachingService"/>.
     /// </summary>
+    /// <seealso href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.caching.distributed.distributedcacheentryoptions"/>
     public interface ICacheable
     {
         /// <summary>
