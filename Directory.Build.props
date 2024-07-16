@@ -3,31 +3,42 @@
         <!-- Package Information -->
         <Authors>Stefan Greve</Authors>
         <Company>Advanced Systems</Company>
-        <Copyright>Copyright © Advanced Systems 2024</Copyright>
-        <Description>General purpose library for building .NET projects.</Description>
+        <Copyright>Copyright (c) Advanced Systems 2024</Copyright>
         <RepositoryUrl>https://github.com/Advanced-Systems/core</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <NeutralLanguage>en</NeutralLanguage>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <PackageLicenseFile>license.md</PackageLicenseFile>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>Backend</PackageTags>
+        <!-- Build Information -->
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <FileVersion>$(Version)</FileVersion>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <PlatformTarget>anycpu</PlatformTarget>
         <OutputType>library</OutputType>
         <Deterministic>true</Deterministic>
+        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <!-- Language Features -->
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\license.md">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-        </None>
-        <None Include="..\readme.md">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-        </None>
+        <None Include="..\license.md" Pack="true" PackagePath="\" />
+        <None Include="..\readme.md" Pack="true" PackagePath="\" />
+        <None Include="..\icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <SupportedPlatform Include="Linux" />
+        <SupportedPlatform Include="macOS" />
+        <SupportedPlatform Include="Windows" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,53 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../AdvancedSystems.Core",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "AdvancedSystems.Core",
+      "_appTitle": "AdvancedSystems.Core",
+      "_appLogoPath": "images/adv-logo-brand.svg",
+      "_appFooter": "Copyright © Advanced Systems 2024",
+      "_disableContribution": false,
+      "_gitContribute": {
+        "repo": "https://github.com/Advanced-Systems/core"
+      },
+      "_enableSearch": true,
+      "pdf": false
+    }
+  }
+}

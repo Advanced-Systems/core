@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Description>Unit test project for AdvancedSystems.Core.</Description>
+    <PackageId>AdvancedSystems.Core.Tests</PackageId>
+    <RootNamespace>AdvancedSystems.Core.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
