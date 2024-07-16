@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "src": "./AdvancedSystems.Core",
+          "src": "../AdvancedSystems.Core",
           "files": [
             "**/*.csproj"
           ]
