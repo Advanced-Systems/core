@@ -3,11 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Version>8.0.0-rc.1</Version>
+    <Description>Abstractions for AdvancedSystems.Core.</Description>
+    <PackageId>AdvancedSystems.Core.Abstractions</PackageId>
     <RootNamespace>AdvancedSystems.Core.Abstractions</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
-  </ItemGroup>
 
 </Project>
