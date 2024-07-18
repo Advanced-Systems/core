@@ -6,6 +6,16 @@
 
 <h1 align="center">Advanced Systems Core</h1>
 
+[![Unit Tests](https://github.com/Advanced-Systems/core/actions/workflows/dotnet-tests.yml/badge.svg)](https://github.com/Advanced-Systems/core/actions/workflows/dotnet-tests.yml)
+[![CodeQL](https://github.com/Advanced-Systems/core/actions/workflows/codeql.yml/badge.svg)](https://github.com/Advanced-Systems/core/actions/workflows/codeql.yml)
+[![Docs](https://github.com/Advanced-Systems/core/actions/workflows/docs.yml/badge.svg)](https://github.com/Advanced-Systems/core/actions/workflows/docs.yml)
+
+## About
+
+The ASP.NET Core REST API for Advanced Systems.
+
+## Developer Notes
+
 Run the test suite:
 
 ```powershell
