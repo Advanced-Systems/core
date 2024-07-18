@@ -22,6 +22,18 @@ Run the test suite:
 dotnet test .\AdvancedSystems.Core.Tests\ --no-logo
 ```
 
+This project also uses stryker for mutation testing, which is setup to be installed with
+
+```powershell
+dotnet tool restore --configfile .\AdvancedSystems.Security\nuget.config
+```
+
+Run stryker locally:
+
+```powershell
+dotnet stryker
+```
+
 Build and serve documentation locally:
 
 ```powershell
