@@ -15,7 +15,6 @@
         <!-- Build Information -->
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <OutputType>library</OutputType>
         <Deterministic>true</Deterministic>

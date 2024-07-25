@@ -12,7 +12,7 @@
 
 ## About
 
-The ASP.NET Core REST API for Advanced Systems.
+General purpose library for building .NET projects.
 
 ## Developer Notes
 
