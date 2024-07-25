@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using AdvancedSystems.Core.Abstractions;
 using AdvancedSystems.Core.Tests.Fixtures;
 
+using Microsoft.Extensions.Caching.Distributed;
+
+using Moq;
+
 using Xunit;
 
 namespace AdvancedSystems.Core.Tests.Services;
@@ -18,37 +22,45 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         this._fixture = fixture;
     }
 
-    public record Person : ICacheable
-    {
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public DateTimeOffset? AbsoluteExpiration { get; set; }
-        public TimeSpan? AbsoluteExpirationRelativeToNow { get; set; }
-        public TimeSpan? SlidingExpiration { get; set; }
-    }
+    public record Person(string FirstName, string LastName);
 
     #region Tests
 
     [Fact]
-    public async Task TestCachingRoundtrip()
+    public async Task TestCachingRoundtrip_HappyPath()
     {
         // Arrange
         string key = "test";
-        var expected = new Person
+        var expected = new Person("Stefan", "Greve");
+        var options = new CacheOptions
         {
-            FirstName = "Stefan",
-            LastName = "Greve",
-            AbsoluteExpiration = DateTimeOffset.UtcNow.AddHours(1)
+            AbsoluteExpiration = DateTimeOffset.UtcNow.AddHours(1),
         };
 
         // Act
-        await this._fixture.CachingService.SetAsync(key, expected, CancellationToken.None);
+        await this._fixture.CachingService.SetAsync(key, expected, options, CancellationToken.None);
         Person? actual = await this._fixture.CachingService.GetAsync<Person>(key, CancellationToken.None);
 
         // Assert
         Assert.NotNull(actual);
         Assert.Equal(expected.FirstName, actual?.FirstName);
         Assert.Equal(expected.LastName, actual?.LastName);
+        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.AtLeastOnce());
+    }
+
+    [Fact]
+    public async Task TestCachingRoundtrip_UnhappyPath()
+    {
+        // Arrange
+        var expected = new Person("Stefan", "Greve");
+
+        // Act
+        await this._fixture.CachingService.SetAsync("test1", expected, CancellationToken.None);
+        Person? actual = await this._fixture.CachingService.GetAsync<Person>("test2", CancellationToken.None);
+
+        // Assert
+        Assert.Null(actual);
+        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.AtLeastOnce());
     }
 
     #endregion
