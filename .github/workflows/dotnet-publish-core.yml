@@ -31,7 +31,7 @@ jobs:
         $File = Resolve-Path ${{ env.PROJECT_PATH }}
         $Xml = [Xml]::new()
         $Xml.Load($File)
-        $Xml.Project.PropertyGroup.Version = ${{ env.RELEASE_VERSION }}
+        $Xml.Project.PropertyGroup.Version = '${{ env.RELEASE_VERSION }}'
         $Xml.Save($File)
       shell: powershell
 
