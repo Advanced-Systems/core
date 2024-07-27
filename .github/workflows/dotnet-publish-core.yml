@@ -9,6 +9,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
+  PROJECT_ROOT: 'AdvancedSystems.Core'
   PROJECT_PATH: 'AdvancedSystems.Core/AdvancedSystems.Core.csproj'
   RELEASE_DIRECTORY: '${{ github.workspace }}/output'
   RELEASE_VERSION: ${{ github.event.inputs.version }}
@@ -36,7 +37,7 @@ jobs:
       shell: powershell
 
     - name: Restore Dependencies
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile nuget.config
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.PROJECT_ROOT }}\nuget.config
 
     - name: Build Project
       run: dotnet build ${{ env.PROJECT_PATH }} --nologo --no-restore --configuration Release
