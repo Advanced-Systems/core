@@ -1,0 +1,49 @@
+name: Publish AdvancedSystems.Core
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version Number'
+        required: true
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: 'AdvancedSystems.Core/AdvancedSystems.Core.csproj'
+  RELEASE_DIRECTORY: '${{ github.workspace }}/output'
+  RELEASE_VERSION: ${{ github.event.inputs.version }}
+
+jobs:
+  deploy:
+    name: Deployment
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Set Version from Dispatch Input
+      run: |
+        $File = Resolve-Path ${{ env.PROJECT_PATH }}
+        $Xml = [Xml]::new()
+        $Xml.Load($File)
+        $Xml.Project.PropertyGroup.Version = ${{ env.RELEASE_VERSION }}
+        $Xml.Save($File)
+      shell: powershell
+
+    - name: Restore Dependencies
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile nuget.config
+
+    - name: Build Project
+      run: dotnet build ${{ env.PROJECT_PATH }} --nologo --no-restore --configuration Release
+
+    - name: Pack Project
+      run: dotnet pack ${{ env.PROJECT_PATH }} --nologo --no-restore --no-build --configuration Release --output ${{ env.RELEASE_DIRECTORY }}
+
+    - name: Deploy Package
+      # Starting with NuGet 3.4.2, the source parameter is mandatory, unless it is specified as DefaultPushSource in nuget.config
+      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
