@@ -9,10 +9,10 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  PROJECT_ROOT: 'AdvancedSystems.Core'
   PROJECT_PATH: 'AdvancedSystems.Core/AdvancedSystems.Core.csproj'
   RELEASE_DIRECTORY: '${{ github.workspace }}/output'
   RELEASE_VERSION: ${{ github.event.inputs.version }}
+  NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
 jobs:
   deploy:
@@ -37,7 +37,7 @@ jobs:
       shell: powershell
 
     - name: Restore Dependencies
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.PROJECT_ROOT }}\nuget.config
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile nuget.config
 
     - name: Build Project
       run: dotnet build ${{ env.PROJECT_PATH }} --nologo --no-restore --configuration Release
@@ -46,5 +46,4 @@ jobs:
       run: dotnet pack ${{ env.PROJECT_PATH }} --nologo --no-restore --no-build --configuration Release --output ${{ env.RELEASE_DIRECTORY }}
 
     - name: Deploy Package
-      # Starting with NuGet 3.4.2, the source parameter is mandatory, unless it is specified as DefaultPushSource in nuget.config
-      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN_PUSH }}
+      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN_PUSH }} --source ${{ env.NUGET_SOURCE }}
