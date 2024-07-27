@@ -12,7 +12,7 @@
         <PackageLicenseFile>license.md</PackageLicenseFile>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageTags>Advanced Systems</PackageTags>
+        <PackageTags>AdvancedSystems</PackageTags>
         <!-- Build Information -->
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
