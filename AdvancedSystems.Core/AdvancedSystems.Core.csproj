@@ -8,11 +8,9 @@
     <Title>Advanced Systems Core Library</Title>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AdvancedSystems.Core.Abstractions" Version="8.0.0-alpha.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AdvancedSystems.Core.Abstractions\AdvancedSystems.Core.Abstractions.csproj" />
   </ItemGroup>
 </Project>
