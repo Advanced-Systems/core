@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 using AdvancedSystems.Core.Abstractions;
-using AdvancedSystems.Security.Common;
+using AdvancedSystems.Core.Common;
 
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -20,23 +19,20 @@ public sealed class CachingService : ICachingService
 
     #region Methods
 
-    public async ValueTask SetAsync<T>(string? key, T value, CancellationToken cancellationToken = default) where T : class, ICacheable, new()
+    public async ValueTask SetAsync<T>(string key, T value, CancellationToken cancellationToken = default) where T : class
     {
-        ArgumentNullException.ThrowIfNull(key, nameof(key));
-        byte[] cacheValue = ObjectSerializer.Serialize(value).ToArray();
-        var options = new DistributedCacheEntryOptions
-        {
-            AbsoluteExpiration = value?.AbsoluteExpiration,
-            AbsoluteExpirationRelativeToNow = value?.AbsoluteExpirationRelativeToNow,
-            SlidingExpiration = value?.SlidingExpiration,
-        };
+        var options = new CacheOptions();
+        await this.SetAsync<T>(key, value, options, cancellationToken);
+    }
 
+    public async ValueTask SetAsync<T>(string key, T value, CacheOptions options, CancellationToken cancellationToken = default) where T : class
+    {
+        byte[] cacheValue = ObjectSerializer.Serialize(value).ToArray();
         await this._distributedCache.SetAsync(key, cacheValue, options, cancellationToken);
     }
 
-    public async ValueTask<T?> GetAsync<T>(string? key, CancellationToken cancellationToken = default) where T : class, ICacheable, new()
+    public async ValueTask<T?> GetAsync<T>(string key, CancellationToken cancellationToken = default) where T : class
     {
-        ArgumentNullException.ThrowIfNull(key, nameof(key));
         byte[]? cachedValues = await this._distributedCache.GetAsync(key, cancellationToken);
 
         if (cachedValues == null || cachedValues.Length == 0) return default;

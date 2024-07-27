@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace AdvancedSystems.Security.Common;
+namespace AdvancedSystems.Core.Common;
 
 /// <summary>
 ///     Provides functionality to serialize objects to UTF-8 encoded JSON and deserialize UTF-8 encoded JSON into objects.
@@ -17,7 +17,7 @@ public static class ObjectSerializer
     /// <param name="value">The <paramref name="value"/> to convert and write.</param>
     /// <returns>A <seealso cref="string"/> representation of the <paramref name="value"/>.</returns>
     /// <exception cref="NotSupportedException">There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.</exception>
-    public static ReadOnlySpan<byte> Serialize<T>(T value) where T : class, new()
+    public static ReadOnlySpan<byte> Serialize<T>(T value) where T : class
     {
         var buffer = new ArrayBufferWriter<byte>();
         using var writer = new Utf8JsonWriter(buffer);
@@ -33,7 +33,7 @@ public static class ObjectSerializer
     /// <returns>A <typeparamref name="T"/> representation of the JSON value.</returns>
     /// <exception cref="JsonException">The JSON is invalid, <typeparamref name="T"/> is not compatible with the JSON, or there is remaining data in the Stream.</exception>
     /// <exception cref="NotSupportedException">There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.</exception>
-    public static T Deserialize<T>(ReadOnlySpan<byte> buffer) where T : class, new()
+    public static T Deserialize<T>(ReadOnlySpan<byte> buffer) where T : class
     {
         var payload = new Utf8JsonReader(buffer);
         return JsonSerializer.Deserialize<T>(ref payload)!;
