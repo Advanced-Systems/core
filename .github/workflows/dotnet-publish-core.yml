@@ -46,4 +46,4 @@ jobs:
 
     - name: Deploy Package
       # Starting with NuGet 3.4.2, the source parameter is mandatory, unless it is specified as DefaultPushSource in nuget.config
-      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
+      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN_PUSH }}
