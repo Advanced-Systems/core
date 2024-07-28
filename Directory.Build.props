@@ -21,6 +21,8 @@
         <OutputType>library</OutputType>
         <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
         <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <!-- Language Features -->
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
