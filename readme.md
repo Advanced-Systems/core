@@ -12,17 +12,27 @@
 
 ## About
 
-General purpose library for building .NET projects.
+A general purpose library for building .NET projects. This package can be installed
+from the public [NuGet Gallery](https://www.nuget.org/packages/AdvancedSystems.Core):
+
+```powershell
+dotnet add package AdvancedSystems.Core
+```
+
+Package consumers can also use the symbols published to nuget.org symbol server by adding <https://symbols.nuget.org/download/symbols>
+to their symbol sources in Visual Studio, which allows stepping into package code in the Visual Studio debugger. See
+[Specify symbol (.pdb) and source files in the Visual Studio debugger](https://learn.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger)
+for details on that process.
 
 ## Developer Notes
 
-Run the test suite:
+Run test suite:
 
 ```powershell
 dotnet test .\AdvancedSystems.Core.Tests\ --no-logo
 ```
 
-This project also uses stryker for mutation testing, which is setup to be installed with
+In addition to unit testing, this project also uses stryker for mutation testing, which is setup to be installed with
 
 ```powershell
 dotnet tool restore --configfile nuget.config
@@ -34,7 +44,7 @@ Run stryker locally:
 dotnet stryker
 ```
 
-Build and serve documentation locally:
+Build and serve documentation locally (`http://localhost:8080`):
 
 ```powershell
 docfx .\docs\docfx.json --serve
