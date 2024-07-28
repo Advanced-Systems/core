@@ -19,6 +19,8 @@ from the public [NuGet Gallery](https://www.nuget.org/packages/AdvancedSystems.C
 dotnet add package AdvancedSystems.Core
 ```
 
+The changelog for this package are available [here](https://advanced-systems.github.io/core/docs/changelog.html).
+
 Package consumers can also use the symbols published to nuget.org symbol server by adding <https://symbols.nuget.org/download/symbols>
 to their symbol sources in Visual Studio, which allows stepping into package code in the Visual Studio debugger. See
 [Specify symbol (.pdb) and source files in the Visual Studio debugger](https://learn.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger)
