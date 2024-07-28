@@ -40,7 +40,8 @@
     "globalMetadata": {
       "_appName": "AdvancedSystems.Core",
       "_appTitle": "AdvancedSystems.Core",
-      "_appLogoPath": "images/adv-logo-brand.svg",
+      "_appFaviconPath": "https://raw.githubusercontent.com/Advanced-Systems/assets/master/logos/svg/min/favicon.svg",
+      "_appLogoPath": "https://raw.githubusercontent.com/Advanced-Systems/assets/master/logos/svg/min/adv-logo-brand.svg",
       "_appFooter": "Copyright © Advanced Systems 2024",
       "_disableContribution": false,
       "_gitContribute": {
