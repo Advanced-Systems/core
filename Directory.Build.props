@@ -11,7 +11,7 @@
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <PackageLicenseFile>license.md</PackageLicenseFile>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
-        <PackageIcon>icon.png</PackageIcon>
+        <PackageIcon>adv-logo_128x128.png</PackageIcon>
         <PackageTags>AdvancedSystems</PackageTags>
         <!-- Build Information -->
         <AssemblyVersion>$(Version)</AssemblyVersion>
@@ -47,7 +47,7 @@
     <ItemGroup>
         <None Include="..\license.md" Pack="true" PackagePath="\" />
         <None Include="..\readme.md" Pack="true" PackagePath="\" />
-        <None Include="..\icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\adv-logo_128x128.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
