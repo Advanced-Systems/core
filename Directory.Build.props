@@ -23,6 +23,7 @@
         <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <!-- Language Features -->
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
@@ -44,6 +45,10 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PublishTrimmed>true</PublishTrimmed>
         <TrimmerSingleWarn>false</TrimmerSingleWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
