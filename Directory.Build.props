@@ -39,7 +39,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
         <Optimize>true</Optimize>
-        <DebugType>none</DebugType>
+        <DebugType>embedded</DebugType>
         <DebugSymbols>false</DebugSymbols>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PublishTrimmed>true</PublishTrimmed>

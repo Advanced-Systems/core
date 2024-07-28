@@ -24,6 +24,9 @@ to their symbol sources in Visual Studio, which allows stepping into package cod
 [Specify symbol (.pdb) and source files in the Visual Studio debugger](https://learn.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger)
 for details on that process.
 
+Additionally, this project also supports [source link technology](https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/sourcelink)
+for debugging .NET assemblies.
+
 ## Developer Notes
 
 Run test suite:
