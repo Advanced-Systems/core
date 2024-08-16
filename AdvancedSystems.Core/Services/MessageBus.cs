@@ -23,12 +23,12 @@ public sealed class MessageBus : IMessageBus
 
     #region Methods
 
-    public async ValueTask PublishAsync<T>(T message, CancellationToken cancellationToken) where T : class, IMessage
+    public async ValueTask PublishAsync<T>(T message, CancellationToken cancellationToken = default) where T : class, IMessage
     {
         await this._channel.Writer.WriteAsync(message, cancellationToken);
     }
 
-    public async ValueTask<T> SubscribeAsync<T>(CancellationToken cancellationToken) where T : class, IMessage
+    public async ValueTask<T> SubscribeAsync<T>(CancellationToken cancellationToken = default) where T : class, IMessage
     {
         while (await this._channel.Reader.WaitToReadAsync(cancellationToken))
         {
