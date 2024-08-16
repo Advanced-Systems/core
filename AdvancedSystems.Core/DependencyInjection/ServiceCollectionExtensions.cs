@@ -1,4 +1,6 @@
-﻿using AdvancedSystems.Core.Abstractions;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using AdvancedSystems.Core.Abstractions;
 using AdvancedSystems.Core.Services;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,13 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCachingService(this IServiceCollection services)
     {
         services.TryAdd(ServiceDescriptor.Singleton<ICachingService, CachingService>());
+        return services;
+    }
+
+    [Experimental("Preview008")]
+    public static IServiceCollection AddMessageBus(this IServiceCollection services)
+    {
+        services.TryAdd(ServiceDescriptor.Singleton<IMessageBus, MessageBus>());
         return services;
     }
 }

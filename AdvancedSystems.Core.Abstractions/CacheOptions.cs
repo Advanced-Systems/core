@@ -4,10 +4,14 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace AdvancedSystems.Core.Abstractions;
 
+/// <summary>
+///     Provides the cache options for an entry in <seealso cref="ICachingService"/>.
+/// </summary>
 public class CacheOptions
 {
     /// <summary>
-    ///     Provides the cache options for an entry in <seealso cref="ICachingService"/>.
+    ///     Gets or sets a value that indicates whether a cache entry should be evicted at a specified
+    ///     point in time.
     /// </summary>
     public DateTimeOffset? AbsoluteExpiration { get; set; }
 
@@ -17,8 +21,8 @@ public class CacheOptions
     public TimeSpan? AbsoluteExpirationRelativeToNow { get; set; }
 
     /// <summary>
-    /// Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
-    /// This will not extend the entry lifetime beyond the absolute expiration (if set).
+    ///     Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
+    ///     This will not extend the entry lifetime beyond the absolute expiration (if set).
     /// </summary>
     public TimeSpan? SlidingExpiration { get; set; }
 

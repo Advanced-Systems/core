@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
+using AdvancedSystems.Core.Abstractions;
 using AdvancedSystems.Core.Services;
 
 using Microsoft.Extensions.Caching.Distributed;
@@ -14,10 +15,6 @@ namespace AdvancedSystems.Core.Tests.Fixtures;
 public sealed class CachingServiceFixture
 {
     private readonly MemoryDistributedCache _memoryCache;
-
-    public Mock<IDistributedCache> DistributedCache { get; private set; } = new Mock<IDistributedCache>();
-
-    public CachingService CachingService { get; private set; }
 
     public CachingServiceFixture()
     {
@@ -52,4 +49,12 @@ public sealed class CachingServiceFixture
 
         this.CachingService = new CachingService(this.DistributedCache.Object);
     }
+
+    #region Properties
+
+    public Mock<IDistributedCache> DistributedCache { get; private set; } = new Mock<IDistributedCache>();
+
+    public ICachingService CachingService { get; private set; }
+
+    #endregion
 }
