@@ -36,15 +36,18 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         // Arrange
         var messageBus = this._fixture.MessageBus;
         var expected = new Message(Guid.NewGuid());
-        string channelName = "internal";
+        string channelName = "internal#001";
 
         // Act
         bool wasCreated = messageBus.Register(channelName);
         await messageBus.PublishAsync(expected);
-        Message actual = await messageBus.SubscribeAsync<Message>(channelName);
+        Message? actual = await messageBus.SubscribeAsync<Message>(channelName);
+        bool wasRemoved = messageBus.Unregister(channelName);
 
         // Assert
         Assert.True(wasCreated);
+        Assert.True(wasRemoved);
+        Assert.NotNull(actual);
         Assert.Equal(expected.Id, actual.Id);
     }
 
@@ -54,17 +57,18 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         // Arrange
         var messageBus = this._fixture.MessageBus;
         var expected = new Message(Guid.NewGuid());
-        string channelName = "internal";
+        string channelName = "internal#002";
         string topic = "test";
 
         // Act
         bool wasCreated = messageBus.Register(channelName, topic);
         await messageBus.PublishAsync(expected, topic, CancellationToken.None);
-
         Passport? actual = await messageBus.SubscribeAsync<Passport>(channelName, null, CancellationToken.None);
+        bool wasRemoved = messageBus.Unregister(channelName);
 
         // Assert
         Assert.True(wasCreated);
+        Assert.True(wasRemoved);
         Assert.Null(actual);
     }
 
