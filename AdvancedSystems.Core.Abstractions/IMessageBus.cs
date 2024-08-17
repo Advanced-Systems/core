@@ -82,7 +82,8 @@ public interface IMessageBus : IAsyncDisposable
     /// </param>
     /// <returns>
     ///     This method is used to receive messages of the specified type from the bus. If no messages
-    ///     of the type are currently available, it will wait until one becomes available.
+    ///     of the type are currently available, it will wait until one becomes available. Returns <c>null</c>
+    ///     if the topic doesn't match, or when the message couldn't be casted to type of <typeparamref name="T"/>.
     /// </returns>
     /// <exception cref="KeyNotFoundException">
     ///     Thrown when no channel with the specified name is found.
@@ -90,5 +91,5 @@ public interface IMessageBus : IAsyncDisposable
     /// <exception cref="ChannelClosedException">
     ///     Thrown if the channel is closed before a message can be received.
     /// </exception>
-    ValueTask<T> SubscribeAsync<T>(string channelName, string? topic = default, CancellationToken cancellationToken = default) where T : class, IMessage;
+    ValueTask<T?> SubscribeAsync<T>(string channelName, string? topic = default, CancellationToken cancellationToken = default) where T : class, IMessage;
 }
