@@ -39,11 +39,12 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         string channelName = "internal";
 
         // Act
-        messageBus.Register(channelName);
+        bool wasCreated = messageBus.Register(channelName);
         await messageBus.PublishAsync(expected);
         Message actual = await messageBus.SubscribeAsync<Message>(channelName);
 
         // Assert
+        Assert.True(wasCreated);
         Assert.Equal(expected.Id, actual.Id);
     }
 
@@ -57,12 +58,13 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         string topic = "test";
 
         // Act
-        messageBus.Register(channelName, topic);
+        bool wasCreated = messageBus.Register(channelName, topic);
         await messageBus.PublishAsync(expected, topic, CancellationToken.None);
 
-        Passport? actual = await messageBus.SubscribeAsync<Passport>(channelName, default, CancellationToken.None);
+        Passport? actual = await messageBus.SubscribeAsync<Passport>(channelName, null, CancellationToken.None);
 
         // Assert
+        Assert.True(wasCreated);
         Assert.Null(actual);
     }
 
