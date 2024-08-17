@@ -3,9 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using AdvancedSystems.Core.Abstractions;
+using AdvancedSystems.Core.DependencyInjection;
 using AdvancedSystems.Core.Tests.Fixtures;
 
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using Moq;
 
@@ -61,6 +66,34 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         // Assert
         Assert.Null(actual);
         this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.AtLeastOnce());
+    }
+
+    [Fact]
+    public async Task TestAddCachingService()
+    {
+        // Arrange
+        using var hostBuilder = await new HostBuilder()
+            .ConfigureWebHost(builder =>
+            {
+                builder.UseTestServer();
+                builder.ConfigureServices(services =>
+                {
+                    services.AddDistributedMemoryCache();
+                    services.AddCachingService();
+                });
+                builder.Configure(app =>
+                {
+
+                });
+            })
+            .StartAsync();
+
+        // Act
+        var cachingService = hostBuilder.Services.GetService<ICachingService>();
+
+        // Assert
+        Assert.NotNull(cachingService);
+        await hostBuilder.StopAsync();
     }
 
     #endregion
