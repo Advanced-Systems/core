@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AdvancedSystems.Core.Services;
 
+/// <inheritdoc cref="IMessageBus" />
 public sealed class MessageBus : IMessageBus
 {
     private const string DEFAULT_TOPIC = "default";
@@ -27,6 +28,7 @@ public sealed class MessageBus : IMessageBus
 
     #region Methods
 
+    /// <inheritdoc />
     public bool Register(string channelName, string? topic = default)
     {
         topic ??= DEFAULT_TOPIC;
@@ -41,6 +43,7 @@ public sealed class MessageBus : IMessageBus
         return this._broadcasts.TryAdd(channelName, channel);
     }
 
+    /// <inheritdoc />
     public bool Unregister(string channelName)
     {
         this._logger.LogDebug("Unregistering channel {Name}.", channelName);
@@ -49,6 +52,7 @@ public sealed class MessageBus : IMessageBus
         return success;
     }
 
+    /// <inheritdoc />
     public async ValueTask PublishAsync<T>(T message, string? topic = default, CancellationToken cancellationToken = default) where T : class, IMessage
     {
         if (this._broadcasts.IsEmpty) throw new InvalidOperationException("There are no registered channels on this message bus.");
@@ -67,6 +71,7 @@ public sealed class MessageBus : IMessageBus
         }
     }
 
+    /// <inheritdoc />
     public async ValueTask<T?> SubscribeAsync<T>(string channelName, string? topic = default, CancellationToken cancellationToken = default) where T: class, IMessage
     {
         if (!this._broadcasts.TryGetValue(channelName, out Broadcast<IMessage>? broadcast) || broadcast is null)
@@ -88,6 +93,7 @@ public sealed class MessageBus : IMessageBus
         throw new ChannelClosedException($"Channel {broadcast.Name} has been closed.");
     }
 
+    /// <inheritdoc />
     public ValueTask DisposeAsync()
     {
         this._logger.LogTrace("Disposing message bus.");
