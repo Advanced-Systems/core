@@ -13,6 +13,7 @@ env:
   RELEASE_DIRECTORY: '${{ github.workspace }}\output'
   RELEASE_VERSION: ${{ github.event.inputs.version }}
   NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
+  GITHUB_SOURCE: 'https://nuget.pkg.github.com/advanced-systems/index.json'
 
 jobs:
   deploy:
@@ -45,5 +46,8 @@ jobs:
     - name: Pack Project
       run: dotnet pack ${{ env.PROJECT_PATH }} --nologo --no-restore --no-build --configuration Release --output ${{ env.RELEASE_DIRECTORY }}
 
-    - name: Deploy Package
+    - name: Deploy Package to GitHub
+      run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}\*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN_PUSH }} --source ${{ env.GITHUB_SOURCE }}
+
+    - name: Deploy Package to NuGet
       run: dotnet nuget push '${{ env.RELEASE_DIRECTORY }}\*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_AUTH_TOKEN_PUSH }} --source ${{ env.NUGET_SOURCE }}
