@@ -8,6 +8,7 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace AdvancedSystems.Core.Services;
 
+/// <inheritdoc cref="ICachingService" />
 public sealed class CachingService : ICachingService
 {
     private readonly IDistributedCache _distributedCache;
@@ -19,18 +20,21 @@ public sealed class CachingService : ICachingService
 
     #region Methods
 
+    /// <inheritdoc />
     public async ValueTask SetAsync<T>(string key, T value, CancellationToken cancellationToken = default) where T : class
     {
         var options = new CacheOptions();
         await this.SetAsync<T>(key, value, options, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async ValueTask SetAsync<T>(string key, T value, CacheOptions options, CancellationToken cancellationToken = default) where T : class
     {
         byte[] cacheValue = ObjectSerializer.Serialize(value).ToArray();
         await this._distributedCache.SetAsync(key, cacheValue, options, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async ValueTask<T?> GetAsync<T>(string key, CancellationToken cancellationToken = default) where T : class
     {
         byte[]? cachedValues = await this._distributedCache.GetAsync(key, cancellationToken);
