@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+using Moq;
 
 using Xunit;
 
@@ -31,15 +35,23 @@ public class CompressionServiceTests : IClassFixture<CompressionServiceFixture>
     {
         // Arrange
         var buffer = Enumerable.Repeat<byte>(0xFF, 100).ToArray();
+        var compressionLevel = CompressionLevel.Optimal;
 
         // Act
-        var compressedBuffer = this._sut.CompressionService.Compress(buffer, CompressionLevel.Optimal);
+        var compressedBuffer = this._sut.CompressionService.Compress(buffer, compressionLevel);
         var expandedBuffer = this._sut.CompressionService.Expand(compressedBuffer);
 
         // Assert
         Assert.NotEmpty(compressedBuffer);
         Assert.True(buffer.Length > compressedBuffer.Length);
         Assert.Equal(buffer, expandedBuffer);
+        this._sut.Logger.Verify(x => x.Log(
+            LogLevel.Trace,
+            It.IsAny<EventId>(),
+            It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains(Enum.GetName(compressionLevel)!)),
+            It.IsAny<Exception>(),
+            It.Is<Func<It.IsAnyType, Exception?, string>>((v, t) => true))
+        );
     }
 
     [Fact]
