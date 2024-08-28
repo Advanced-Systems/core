@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AdvancedSystems.Core.Services;
 
+/// <inheritdoc cref="ICompressionService" />
 public sealed class CompressionService : ICompressionService
 {
     private readonly ILogger<CompressionService> _logger;
@@ -19,12 +20,14 @@ public sealed class CompressionService : ICompressionService
 
     #region Methods
 
+    /// <inheritdoc />
     public byte[] Compress(ReadOnlyMemory<byte> expandedBuffer, CompressionLevel compressionLevel)
     {
         this._logger.LogTrace("Compression Level = {CompressionLevel}", compressionLevel);
         return Archive.Compress(expandedBuffer, compressionLevel);
     }
 
+    /// <inheritdoc />
     public byte[] Expand(ReadOnlyMemory<byte> compressedBuffer)
     {
         return Archive.Expand(compressedBuffer);
