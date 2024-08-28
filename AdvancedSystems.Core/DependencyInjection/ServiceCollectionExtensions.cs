@@ -16,6 +16,12 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddCompressionService(this IServiceCollection services)
+    {
+        services.TryAdd(ServiceDescriptor.Scoped<ICompressionService, CompressionService>());
+        return services;
+    }
+
     [Experimental("Preview008")]
     public static IServiceCollection AddMessageBus(this IServiceCollection services)
     {
