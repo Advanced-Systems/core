@@ -54,5 +54,5 @@ Person? stefan = serializationService.Deserialize(serialized, PersonContext.Defa
 
 ### See Also
 
-- [`ObjectSerializer`](/api/AdvancedSystems.Core.Common.ObjectSerializer.html)
-- [`CachingService`](/api/AdvancedSystems.Core.Services.CachingService.html)
+- [`ObjectSerializer`](~/api/AdvancedSystems.Core.Common.ObjectSerializer.html)
+- [`CachingService`](~/api/AdvancedSystems.Core.Services.CachingService.html)
