@@ -10,7 +10,7 @@ public class ObjectSerializerTests
     #region Tests
 
     [Fact]
-    public void TestSerializationRoundtrip_HappyPath()
+    public void TestSerializationRoundtrip()
     {
         // Arrange
         var expected = new Person("Stefan", "Greve");
