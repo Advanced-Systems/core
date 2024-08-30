@@ -28,4 +28,10 @@ public static class ServiceCollectionExtensions
         services.TryAdd(ServiceDescriptor.Singleton<IMessageBus, MessageBus>());
         return services;
     }
+
+    public static IServiceCollection AddSerializationService(this IServiceCollection services)
+    {
+        services.TryAdd(ServiceDescriptor.Scoped<ISerializationService, SerializationService>());
+        return services;
+    }
 }
