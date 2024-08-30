@@ -41,9 +41,11 @@ services.AddSerializationService();
 // retrieve an instance of a service
 var serializationService = hostBuilder.Services.GetService<ISerializationService>();
 
+var developer = new Person("Stefan", "Greve");
+
 // serialize and deserialize an object
-var serialized = serializationService.Serialize(expected, PersonContext.Default.Person);
-var actual = serializationService.Deserialize(serialized, PersonContext.Default.Person);
+byte[] serialized = serializationService.Serialize(developer, PersonContext.Default.Person);
+Person? stefan = serializationService.Deserialize(serialized, PersonContext.Default.Person);
 ```
 
 ### Further Reading
