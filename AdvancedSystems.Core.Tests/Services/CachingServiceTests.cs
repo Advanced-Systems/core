@@ -34,6 +34,7 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
     public async Task TestCachingRoundtrip_HappyPath()
     {
         // Arrange
+        this._fixture.DistributedCache.Invocations.Clear();
         string key = "test";
         var expected = new Person("Stefan", "Greve");
         var options = new CacheOptions
@@ -49,13 +50,14 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         Assert.NotNull(actual);
         Assert.Equal(expected.FirstName, actual?.FirstName);
         Assert.Equal(expected.LastName, actual?.LastName);
-        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.AtLeastOnce());
+        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
     public async Task TestCachingRoundtrip_UnhappyPath()
     {
         // Arrange
+        this._fixture.DistributedCache.Invocations.Clear();
         var expected = new Person("Stefan", "Greve");
 
         // Act
@@ -64,7 +66,7 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
 
         // Assert
         Assert.Null(actual);
-        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.AtLeastOnce());
+        this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
