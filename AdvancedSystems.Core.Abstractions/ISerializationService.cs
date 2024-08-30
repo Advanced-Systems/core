@@ -30,7 +30,7 @@ public interface ISerializationService
     /// <exception cref="NotSupportedException">
     ///     There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.
     /// </exception>
-    ReadOnlySpan<byte> Serialize<T>(T value, JsonTypeInfo<T> typeInfo) where T : class;
+    byte[] Serialize<T>(T value, JsonTypeInfo<T> typeInfo) where T : class;
 
     /// <summary>
     ///     Parses the text representing a single JSON value into a <typeparamref name="T"/>.
@@ -53,7 +53,7 @@ public interface ISerializationService
     /// <exception cref="NotSupportedException">
     ///     There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.
     /// </exception>
-    T? Deserialize<T>(ReadOnlySpan<byte> buffer, JsonTypeInfo<T> typeInfo) where T : class;
+    T? Deserialize<T>(byte[] buffer, JsonTypeInfo<T> typeInfo) where T : class;
 
     #endregion
 }
