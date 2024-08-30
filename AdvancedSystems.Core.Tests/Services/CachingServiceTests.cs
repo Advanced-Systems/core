@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AdvancedSystems.Core.Abstractions;
 using AdvancedSystems.Core.DependencyInjection;
 using AdvancedSystems.Core.Tests.Fixtures;
+using AdvancedSystems.Core.Tests.Models;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -27,8 +28,6 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         this._fixture = fixture;
     }
 
-    public record Person(string FirstName, string LastName);
-
     #region Tests
 
     [Fact]
@@ -43,8 +42,8 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         };
 
         // Act
-        await this._fixture.CachingService.SetAsync(key, expected, options, CancellationToken.None);
-        Person? actual = await this._fixture.CachingService.GetAsync<Person>(key, CancellationToken.None);
+        await this._fixture.CachingService.SetAsync(key, expected, PersonContext.Default.Person, options, CancellationToken.None);
+        Person? actual = await this._fixture.CachingService.GetAsync(key, PersonContext.Default.Person, CancellationToken.None);
 
         // Assert
         Assert.NotNull(actual);
@@ -60,8 +59,8 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         var expected = new Person("Stefan", "Greve");
 
         // Act
-        await this._fixture.CachingService.SetAsync("test1", expected, CancellationToken.None);
-        Person? actual = await this._fixture.CachingService.GetAsync<Person>("test2", CancellationToken.None);
+        await this._fixture.CachingService.SetAsync("test1", expected, PersonContext.Default.Person, CancellationToken.None);
+        Person? actual = await this._fixture.CachingService.GetAsync("test2", PersonContext.Default.Person, CancellationToken.None);
 
         // Assert
         Assert.Null(actual);
