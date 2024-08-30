@@ -23,7 +23,7 @@ public interface ICachingService
     /// <param name="value">
     ///     The values to set in the cache.
     /// </param>
-    /// <param name="jsonTypeInfo">
+    /// <param name="typeInfo">
     ///     The metadata for the specified type.
     /// </param>
     /// <param name="cancellationToken">
@@ -32,7 +32,7 @@ public interface ICachingService
     /// <returns>
     ///     A ValueTask representing the asynchronous operation.
     /// </returns>
-    ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default) where T : class;
+    ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> typeInfo, CancellationToken cancellationToken = default) where T : class;
 
     /// <summary>
     ///     Sets a values in the cache asynchronously.
@@ -46,7 +46,7 @@ public interface ICachingService
     /// <param name="value">
     ///     The values to set in the cache.
     /// </param>
-    /// <param name="jsonTypeInfo">
+    /// <param name="typeInfo">
     ///     The metadata for the specified type.
     /// </param>
     /// <param name="options">
@@ -58,7 +58,7 @@ public interface ICachingService
     /// <returns>
     ///     A ValueTask representing the asynchronous operation.
     /// </returns>
-    ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> jsonTypeInfo, CacheOptions options, CancellationToken cancellationToken = default) where T : class;
+    ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> typeInfo, CacheOptions options, CancellationToken cancellationToken = default) where T : class;
 
     /// <summary>
     ///     Gets a values from the cache asynchronously.
@@ -69,7 +69,7 @@ public interface ICachingService
     /// <param name="key">
     ///     A string identifying the requested values.
     /// </param>
-    /// <param name="jsonTypeInfo">
+    /// <param name="typeInfo">
     ///     The metadata for the specified type.
     /// </param>
     /// <param name="cancellationToken">
@@ -79,7 +79,7 @@ public interface ICachingService
     ///     A ValueTask containing the result of type <typeparamref name="T"/> representing the asynchronous
     ///     operation. The result is null if <paramref name="key"/> can not be identified in the cache.
     /// </returns>
-    ValueTask<T?> GetAsync<T>(string key, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default) where T : class;
+    ValueTask<T?> GetAsync<T>(string key, JsonTypeInfo<T> typeInfo, CancellationToken cancellationToken = default) where T : class;
 
     #endregion
 }
