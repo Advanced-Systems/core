@@ -17,7 +17,7 @@ public sealed class CachingService : ICachingService
     public CachingService(IDistributedCache distributedCache, ISerializationService serializationService)
     {
         this._distributedCache = distributedCache;
-        _serializationService = serializationService;
+        this._serializationService = serializationService;
     }
 
     #region Methods
