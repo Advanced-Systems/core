@@ -1,8 +1,8 @@
-﻿using System.Threading;
+﻿using System.Text.Json.Serialization.Metadata;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AdvancedSystems.Core.Abstractions;
-using AdvancedSystems.Core.Common;
 
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -12,36 +12,38 @@ namespace AdvancedSystems.Core.Services;
 public sealed class CachingService : ICachingService
 {
     private readonly IDistributedCache _distributedCache;
+    private readonly ISerializationService _serializationService;
 
-    public CachingService(IDistributedCache distributedCache)
+    public CachingService(IDistributedCache distributedCache, ISerializationService serializationService)
     {
         this._distributedCache = distributedCache;
+        this._serializationService = serializationService;
     }
 
     #region Methods
 
     /// <inheritdoc />
-    public async ValueTask SetAsync<T>(string key, T value, CancellationToken cancellationToken = default) where T : class
+    public async ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default) where T : class
     {
         var options = new CacheOptions();
-        await this.SetAsync<T>(key, value, options, cancellationToken);
+        await this.SetAsync(key, value, jsonTypeInfo, options, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async ValueTask SetAsync<T>(string key, T value, CacheOptions options, CancellationToken cancellationToken = default) where T : class
+    public async ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> jsonTypeInfo, CacheOptions options, CancellationToken cancellationToken = default) where T : class
     {
-        byte[] cacheValue = ObjectSerializer.Serialize(value).ToArray();
+        byte[] cacheValue = this._serializationService.Serialize(value, jsonTypeInfo);
         await this._distributedCache.SetAsync(key, cacheValue, options, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async ValueTask<T?> GetAsync<T>(string key, CancellationToken cancellationToken = default) where T : class
+    public async ValueTask<T?> GetAsync<T>(string key, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default) where T : class
     {
         byte[]? cachedValues = await this._distributedCache.GetAsync(key, cancellationToken);
 
         if (cachedValues == null || cachedValues.Length == 0) return default;
 
-        T @object = ObjectSerializer.Deserialize<T>(cachedValues);
+        T? @object = this._serializationService.Deserialize(cachedValues, jsonTypeInfo);
         return @object;
     }
 

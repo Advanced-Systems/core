@@ -1,41 +1,27 @@
 ﻿using System;
 using System.Buffers;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
+
+using AdvancedSystems.Core.Abstractions;
 
 namespace AdvancedSystems.Core.Common;
 
-/// <summary>
-///     Provides functionality to serialize objects to UTF-8 encoded JSON and deserialize UTF-8 encoded JSON into objects.
-/// </summary>
+/// <inheritdoc cref="ISerializationService" />
 public static class ObjectSerializer
 {
-    /// <summary>
-    ///     Converts the provided value into a <seealso cref="string"/>.
-    /// </summary>
-    /// <typeparam name="T">The type of the value to serialize.</typeparam>
-    /// <param name="value">The <paramref name="value"/> to convert and write.</param>
-    /// <returns>A <seealso cref="string"/> representation of the <paramref name="value"/>.</returns>
-    /// <exception cref="NotSupportedException">There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.</exception>
-    public static ReadOnlySpan<byte> Serialize<T>(T value) where T : class
+    /// <inheritdoc cref="ISerializationService.Serialize{T}(T, JsonTypeInfo{T})" />
+    public static ReadOnlySpan<byte> Serialize<T>(T value, JsonTypeInfo<T> typeInfo) where T : class
     {
         var buffer = new ArrayBufferWriter<byte>();
         using var writer = new Utf8JsonWriter(buffer);
-        JsonSerializer.Serialize(writer, value);
+        JsonSerializer.Serialize(writer, value, typeInfo);
         return buffer.WrittenSpan;
     }
 
-    /// <summary>
-    ///     Parses the text representing a single JSON value into a <typeparamref name="T"/>.
-    /// </summary>
-    /// <typeparam name="T">The type to deserialize the JSON value into.</typeparam>
-    /// <param name="buffer">JSON text to parse.</param>
-    /// <returns>A <typeparamref name="T"/> representation of the JSON value.</returns>
-    /// <exception cref="JsonException">The JSON is invalid, <typeparamref name="T"/> is not compatible with the JSON, or there is remaining data in the Stream.</exception>
-    /// <exception cref="NotSupportedException">There is no compatible <seealso cref="JsonConverter"/> for <typeparamref name="T"/> or its serializable members.</exception>
-    public static T Deserialize<T>(ReadOnlySpan<byte> buffer) where T : class
+    /// <inheritdoc cref="ISerializationService.Deserialize{T}(byte[], JsonTypeInfo{T})" />
+    public static T? Deserialize<T>(ReadOnlySpan<byte> buffer, JsonTypeInfo<T> typeInfo) where T : class
     {
-        var payload = new Utf8JsonReader(buffer);
-        return JsonSerializer.Deserialize<T>(ref payload)!;
+        return JsonSerializer.Deserialize(buffer, typeInfo); 
     }
 }

@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCachingService(this IServiceCollection services)
     {
+        services.AddSerializationService();
         services.TryAdd(ServiceDescriptor.Singleton<ICachingService, CachingService>());
         return services;
     }
@@ -26,6 +27,12 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessageBus(this IServiceCollection services)
     {
         services.TryAdd(ServiceDescriptor.Singleton<IMessageBus, MessageBus>());
+        return services;
+    }
+
+    public static IServiceCollection AddSerializationService(this IServiceCollection services)
+    {
+        services.TryAdd(ServiceDescriptor.Scoped<ISerializationService, SerializationService>());
         return services;
     }
 }
