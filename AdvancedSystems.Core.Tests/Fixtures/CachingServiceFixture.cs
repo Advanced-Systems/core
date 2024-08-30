@@ -47,12 +47,14 @@ public sealed class CachingServiceFixture
             })
             .Returns(Task.CompletedTask);
 
-        this.CachingService = new CachingService(this.DistributedCache.Object);
+        this.CachingService = new CachingService(this.DistributedCache.Object, this.SerializationService.Object);
     }
 
     #region Properties
 
-    public Mock<IDistributedCache> DistributedCache { get; private set; } = new Mock<IDistributedCache>();
+    public Mock<IDistributedCache> DistributedCache { get; private set; } = new();
+
+    public Mock<ISerializationService> SerializationService { get; private set; } = new();
 
     public ICachingService CachingService { get; private set; }
 

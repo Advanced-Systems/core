@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using AdvancedSystems.Core.Abstractions;
-using AdvancedSystems.Core.Common;
 
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -13,10 +12,12 @@ namespace AdvancedSystems.Core.Services;
 public sealed class CachingService : ICachingService
 {
     private readonly IDistributedCache _distributedCache;
+    private readonly ISerializationService _serializationService;
 
-    public CachingService(IDistributedCache distributedCache)
+    public CachingService(IDistributedCache distributedCache, ISerializationService serializationService)
     {
         this._distributedCache = distributedCache;
+        _serializationService = serializationService;
     }
 
     #region Methods
@@ -31,7 +32,7 @@ public sealed class CachingService : ICachingService
     /// <inheritdoc />
     public async ValueTask SetAsync<T>(string key, T value, JsonTypeInfo<T> jsonTypeInfo, CacheOptions options, CancellationToken cancellationToken = default) where T : class
     {
-        byte[] cacheValue = ObjectSerializer.Serialize(value, jsonTypeInfo).ToArray();
+        byte[] cacheValue = this._serializationService.Serialize(value, jsonTypeInfo);
         await this._distributedCache.SetAsync(key, cacheValue, options, cancellationToken);
     }
 
@@ -42,7 +43,7 @@ public sealed class CachingService : ICachingService
 
         if (cachedValues == null || cachedValues.Length == 0) return default;
 
-        T? @object = ObjectSerializer.Deserialize(cachedValues, jsonTypeInfo);
+        T? @object = this._serializationService.Deserialize(cachedValues, jsonTypeInfo);
         return @object;
     }
 

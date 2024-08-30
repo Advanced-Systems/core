@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCachingService(this IServiceCollection services)
     {
+        services.AddSerializationService();
         services.TryAdd(ServiceDescriptor.Singleton<ICachingService, CachingService>());
         return services;
     }

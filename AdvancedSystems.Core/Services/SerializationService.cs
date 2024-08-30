@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization.Metadata;
+﻿using System.Text.Json.Serialization.Metadata;
 
 using AdvancedSystems.Core.Abstractions;
 using AdvancedSystems.Core.Common;
@@ -12,13 +11,13 @@ public sealed class SerializationService : ISerializationService
     #region Methods
 
     /// <inheritdoc />
-    public ReadOnlySpan<byte> Serialize<T>(T value, JsonTypeInfo<T> typeInfo) where T : class
+    public byte[] Serialize<T>(T value, JsonTypeInfo<T> typeInfo) where T : class
     {
-        return ObjectSerializer.Serialize(value, typeInfo);
+        return ObjectSerializer.Serialize(value, typeInfo).ToArray();
     }
 
     /// <inheritdoc />
-    public T? Deserialize<T>(ReadOnlySpan<byte> buffer, JsonTypeInfo<T> typeInfo) where T : class
+    public T? Deserialize<T>(byte[] buffer, JsonTypeInfo<T> typeInfo) where T : class
     {
         return ObjectSerializer.Deserialize(buffer, typeInfo);
     }

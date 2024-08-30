@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 
 using AdvancedSystems.Core.Abstractions;
+using AdvancedSystems.Core.Common;
 using AdvancedSystems.Core.DependencyInjection;
 using AdvancedSystems.Core.Tests.Fixtures;
 using AdvancedSystems.Core.Tests.Models;
@@ -35,12 +37,21 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
     {
         // Arrange
         this._fixture.DistributedCache.Invocations.Clear();
+        this._fixture.SerializationService.Invocations.Clear();
         string key = "test";
         var expected = new Person("Stefan", "Greve");
-        var options = new CacheOptions
-        {
-            AbsoluteExpiration = DateTimeOffset.UtcNow.AddHours(1),
-        };
+        var options = new CacheOptions { AbsoluteExpiration = DateTimeOffset.UtcNow.AddHours(1) };
+        var serialized = ObjectSerializer.Serialize(expected, PersonContext.Default.Person).ToArray();
+        this._fixture.SerializationService
+            .Setup(s => s.Serialize(It.IsAny<It.IsAnyType>(), It.IsAny<JsonTypeInfo<It.IsAnyType>>()))
+            .Returns(serialized);
+
+        this._fixture.SerializationService
+            .Setup(s => s.Deserialize(It.IsAny<byte[]>(), It.IsAny<JsonTypeInfo<It.IsAnyType>>()))
+            .Returns((byte[] bytes, JsonTypeInfo<Person> typeInfo) =>
+            {
+                return ObjectSerializer.Deserialize(bytes, PersonContext.Default.Person);
+            });
 
         // Act
         await this._fixture.CachingService.SetAsync(key, expected, PersonContext.Default.Person, options, CancellationToken.None);
@@ -50,7 +61,9 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         Assert.NotNull(actual);
         Assert.Equal(expected.FirstName, actual?.FirstName);
         Assert.Equal(expected.LastName, actual?.LastName);
+        this._fixture.SerializationService.VerifyAll();
         this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.Once);
+
     }
 
     [Fact]
@@ -58,6 +71,7 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
     {
         // Arrange
         this._fixture.DistributedCache.Invocations.Clear();
+        this._fixture.SerializationService.Invocations.Clear();
         var expected = new Person("Stefan", "Greve");
 
         // Act
