@@ -24,7 +24,7 @@ public interface ICachingService
     ///     The values to set in the cache.
     /// </param>
     /// <param name="typeInfo">
-    ///     The metadata for the specified type.
+    ///     <inheritdoc cref="ISerializationService.Serialize{T}(T, JsonTypeInfo{T})" path="/param[@name='typeInfo']" />
     /// </param>
     /// <param name="cancellationToken">
     ///     Propagates notification that operations should be cancelled.
@@ -47,7 +47,7 @@ public interface ICachingService
     ///     The values to set in the cache.
     /// </param>
     /// <param name="typeInfo">
-    ///     The metadata for the specified type.
+    ///     <inheritdoc cref="ISerializationService.Serialize{T}(T, JsonTypeInfo{T})" path="/param[@name='typeInfo']" />
     /// </param>
     /// <param name="options">
     ///     The cache options for the value.
@@ -70,7 +70,7 @@ public interface ICachingService
     ///     A string identifying the requested values.
     /// </param>
     /// <param name="typeInfo">
-    ///     The metadata for the specified type.
+    ///     <inheritdoc cref="ISerializationService.Deserialize{T}(byte[], JsonTypeInfo{T})" path="/param[@name='typeInfo']" />
     /// </param>
     /// <param name="cancellationToken">
     ///     Propagates notification that operations should be cancelled.
