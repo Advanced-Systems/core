@@ -34,7 +34,7 @@ for debugging .NET assemblies.
 Run test suite:
 
 ```powershell
-dotnet test .\AdvancedSystems.Core.Tests\ --no-logo
+dotnet test .\AdvancedSystems.Core.Tests\ --nologo
 ```
 
 In addition to unit testing, this project also uses stryker for mutation testing, which is setup to be installed with
