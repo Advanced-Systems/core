@@ -59,7 +59,7 @@ public sealed class MessageBus : IMessageBus
 
         topic ??= DEFAULT_TOPIC;
         var snapshot = this._broadcasts.Values
-            .Where(x => string.Equals(x.Topic, topic))
+            .Where(x => string.Equals(x.Topic, topic, StringComparison.Ordinal))
             .ToList();
 
         if (snapshot.Count == 0) throw new InvalidOperationException($"Unknown topic ('{topic}').");
