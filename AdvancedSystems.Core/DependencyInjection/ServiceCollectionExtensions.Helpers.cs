@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,9 @@ public static partial class ServiceCollectionExtensions
     /// <returns>
     ///     The value of <paramref name="services"/>.
     /// </returns>
+    /// <remarks>
+    ///     This method performs implicit data annotations on startup for this options instance.
+    /// </remarks>
     public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, IConfigurationSection configurationSection) where TOptions : class
     {
         bool hasOptions = services.Any(service => service.ServiceType == typeof(IConfigureOptions<TOptions>));
@@ -57,15 +62,32 @@ public static partial class ServiceCollectionExtensions
     /// <returns>
     ///     The value of <paramref name="services"/>.
     /// </returns>
+    /// <remarks>
+    ///     This method performs implicit data annotations on startup for this options instance.
+    /// </remarks>
     public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, Action<TOptions> configureOptions) where TOptions : class, new()
     {
         services.TryAddSingleton(_ =>
         {
             var options = new TOptions();
             configureOptions(options);
+            ValidateOptions(options);
             return Options.Create(options);
         });
 
         return services;
+    }
+
+    private static void ValidateOptions<TOptions>(TOptions options) where TOptions : class
+    {
+        var context = new ValidationContext(options);
+        var results = new List<ValidationResult>();
+
+        bool isValid = Validator.TryValidateObject(options, context, results, true);
+
+        if (!isValid)
+        {
+            throw new ValidationException($"Validation failed for options: {string.Join(", ", results.Select(r => r.ErrorMessage))}");
+        }
     }
 }
