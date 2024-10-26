@@ -29,7 +29,7 @@ public static partial class ServiceCollectionExtensions
     ///     The value of <paramref name="services"/>.
     /// </returns>
     /// <remarks>
-    ///     This method performs implicit data annotations on startup for this options instance.
+    ///     This method performs implicit data annotation validations on the options instance on startup.
     /// </remarks>
     public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, IConfigurationSection configurationSection) where TOptions : class
     {
@@ -63,7 +63,7 @@ public static partial class ServiceCollectionExtensions
     ///     The value of <paramref name="services"/>.
     /// </returns>
     /// <remarks>
-    ///     This method performs implicit data annotations on startup for this options instance.
+    ///     This method performs implicit data annotation validations on the options instance on startup.
     /// </remarks>
     public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, Action<TOptions> configureOptions) where TOptions : class, new()
     {
