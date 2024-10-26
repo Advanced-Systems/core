@@ -72,7 +72,7 @@ public static partial class ServiceCollectionExtensions
     /// </returns>
     public static IServiceCollection AddSerializationService(this IServiceCollection services)
     {
-        services.TryAdd(ServiceDescriptor.Scoped<ISerializationService, SerializationService>());
+        services.TryAdd(ServiceDescriptor.Singleton<ISerializationService, SerializationService>());
         return services;
     }
 }
