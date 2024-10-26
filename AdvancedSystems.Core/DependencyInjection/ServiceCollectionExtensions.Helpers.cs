@@ -42,7 +42,8 @@ public static partial class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// 
+    ///     Registers and binds <typeparamref name="TOptions"/> to the underlying <paramref name="services"/> collection
+    ///     if it has not already been registered, and binds the options from <paramref name="configureOptions"/>.
     /// </summary>
     /// <typeparam name="TOptions">
     ///     The type of the options to register and configure.
