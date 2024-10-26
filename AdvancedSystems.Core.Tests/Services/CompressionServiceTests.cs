@@ -42,16 +42,19 @@ public class CompressionServiceTests : IClassFixture<CompressionServiceFixture>
         var expandedBuffer = this._sut.CompressionService.Expand(compressedBuffer);
 
         // Assert
-        Assert.NotEmpty(compressedBuffer);
-        Assert.True(buffer.Length > compressedBuffer.Length);
-        Assert.Equal(buffer, expandedBuffer);
-        this._sut.Logger.Verify(x => x.Log(
-            LogLevel.Trace,
-            It.IsAny<EventId>(),
-            It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains(Enum.GetName(compressionLevel)!)),
-            It.IsAny<Exception>(),
-            It.Is<Func<It.IsAnyType, Exception?, string>>((v, t) => true))
-        );
+        Assert.Multiple(() =>
+        {
+            Assert.NotEmpty(compressedBuffer);
+            Assert.True(buffer.Length > compressedBuffer.Length);
+            Assert.Equal(buffer, expandedBuffer);
+            this._sut.Logger.Verify(x => x.Log(
+                LogLevel.Trace,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains(Enum.GetName(compressionLevel)!)),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception?, string>>((v, t) => true))
+            );
+        });
     }
 
     [Fact]

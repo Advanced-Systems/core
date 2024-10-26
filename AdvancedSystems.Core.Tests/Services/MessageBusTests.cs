@@ -45,10 +45,13 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         bool wasRemoved = messageBus.Unregister(channelName);
 
         // Assert
-        Assert.True(wasCreated);
-        Assert.True(wasRemoved);
-        Assert.NotNull(actual);
-        Assert.Equal(expected.Id, actual.Id);
+        Assert.Multiple(() =>
+        {
+            Assert.True(wasCreated);
+            Assert.True(wasRemoved);
+            Assert.NotNull(actual);
+            Assert.Equal(expected.Id, actual.Id);
+        });
     }
 
     [Fact]
@@ -67,9 +70,12 @@ public class MessageBusTests : IClassFixture<MessageBusFixture>
         bool wasRemoved = messageBus.Unregister(channelName);
 
         // Assert
-        Assert.True(wasCreated);
-        Assert.True(wasRemoved);
-        Assert.Null(actual);
+        Assert.Multiple(() =>
+        {
+            Assert.True(wasCreated);
+            Assert.True(wasRemoved);
+            Assert.Null(actual);
+        });
     }
 
     [Fact]

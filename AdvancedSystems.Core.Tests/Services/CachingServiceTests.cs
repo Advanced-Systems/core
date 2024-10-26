@@ -58,9 +58,12 @@ public class CachingServiceTests : IClassFixture<CachingServiceFixture>
         Person? actual = await this._fixture.CachingService.GetAsync(key, PersonContext.Default.Person, CancellationToken.None);
 
         // Assert
-        Assert.NotNull(actual);
-        Assert.Equal(expected.FirstName, actual?.FirstName);
-        Assert.Equal(expected.LastName, actual?.LastName);
+        Assert.Multiple(() =>
+        {
+            Assert.NotNull(actual);
+            Assert.Equal(expected.FirstName, actual?.FirstName);
+            Assert.Equal(expected.LastName, actual?.LastName);
+        });
         this._fixture.SerializationService.VerifyAll();
         this._fixture.DistributedCache.Verify(service => service.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.Once);
 

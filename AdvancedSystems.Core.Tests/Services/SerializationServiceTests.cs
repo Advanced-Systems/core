@@ -36,8 +36,11 @@ public class SerializationServiceTests : IClassFixture<SerializationServiceFixtu
         var actual = this._sut.SerializationService.Deserialize(serialized, PersonContext.Default.Person);
 
         // Assert
-        Assert.NotNull(actual);
-        Assert.Equal(expected, actual);
+        Assert.Multiple(() =>
+        {
+            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
+        });
     }
 
     [Fact]
