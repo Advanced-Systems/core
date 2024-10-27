@@ -22,6 +22,6 @@ public static class ObjectSerializer
     /// <inheritdoc cref="ISerializationService.Deserialize{T}(byte[], JsonTypeInfo{T})" />
     public static T? Deserialize<T>(ReadOnlySpan<byte> buffer, JsonTypeInfo<T> typeInfo) where T : class
     {
-        return JsonSerializer.Deserialize(buffer, typeInfo); 
+        return JsonSerializer.Deserialize(buffer, typeInfo);
     }
 }

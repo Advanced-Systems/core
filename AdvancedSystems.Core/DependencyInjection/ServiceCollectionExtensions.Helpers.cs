@@ -33,9 +33,9 @@ public static partial class ServiceCollectionExtensions
     /// </remarks>
     public static IServiceCollection TryAddOptions<TOptions>(this IServiceCollection services, IConfigurationSection configurationSection) where TOptions : class
     {
-        bool hasOptions = services.Any(service => service.ServiceType == typeof(IConfigureOptions<TOptions>));
+        bool isRegistered = services.Any(service => service.ServiceType == typeof(IConfigureOptions<TOptions>));
 
-        if (!hasOptions)
+        if (!isRegistered)
         {
             services.AddOptions<TOptions>()
                 .Bind(configurationSection)

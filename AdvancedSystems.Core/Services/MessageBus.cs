@@ -64,7 +64,7 @@ public sealed class MessageBus : IMessageBus
 
         if (snapshot.Count == 0) throw new InvalidOperationException($"Unknown topic ('{topic}').");
 
-        foreach(var broadcast in snapshot)
+        foreach (var broadcast in snapshot)
         {
             this._logger.LogDebug("Publishing {Message} to channel {Channel}.", message, broadcast.Name);
             await broadcast.Channel.Writer.WriteAsync(message, cancellationToken);
@@ -72,7 +72,7 @@ public sealed class MessageBus : IMessageBus
     }
 
     /// <inheritdoc />
-    public async ValueTask<T?> SubscribeAsync<T>(string channelName, string? topic = default, CancellationToken cancellationToken = default) where T: class, IMessage
+    public async ValueTask<T?> SubscribeAsync<T>(string channelName, string? topic = default, CancellationToken cancellationToken = default) where T : class, IMessage
     {
         if (!this._broadcasts.TryGetValue(channelName, out Broadcast<IMessage>? broadcast) || broadcast is null)
         {

@@ -34,7 +34,7 @@ public static class Archive
     {
         if (compressedBuffer.IsEmpty) throw new ArgumentException("Buffer to expand cannot be empty.", nameof(compressedBuffer));
         using var expandedStream = new MemoryStream();
-        
+
         unsafe
         {
             fixed (byte* pointer = &compressedBuffer.Span[0])

@@ -30,7 +30,7 @@ public class ArchiveTests
     public void TestCompress_ThrowsIfEmpty()
     {
         // Arrange
-        byte[] buffer =  Enumerable.Empty<byte>().ToArray();
+        byte[] buffer = Enumerable.Empty<byte>().ToArray();
 
         // Act
         void Compress()
