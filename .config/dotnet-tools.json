@@ -8,6 +8,13 @@
         "dotnet-stryker"
       ],
       "rollForward": false
+    },
+    "husky": {
+      "version": "0.7.1",
+      "commands": [
+        "husky"
+      ],
+      "rollForward": false
     }
   }
 }
